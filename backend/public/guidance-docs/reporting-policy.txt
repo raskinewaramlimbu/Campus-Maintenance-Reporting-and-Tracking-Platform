@@ -1,0 +1,20 @@
+FixMyCampus - Reporting Policy (v1.2)
+
+1. Who can use this service
+   Any current student or member of staff. You don't need to log in for
+   pass-stage functionality, but reports are more useful if you leave
+   accurate location details.
+
+2. What happens to your report
+   Reports go into a shared queue that Estates staff review each morning.
+   Status moves from "New" -> "In Progress" -> "Resolved". You can check
+   status any time on the Reports page.
+
+3. Data we keep
+   We store the category, location, description, optional photo link and
+   timestamps. We do not require your name. See the Privacy page in the
+   app for the full policy.
+
+4. Duplicate reports
+   If you see an issue that's already been reported, please don't submit
+   a duplicate - it slows down triage. Check the Reports list first.

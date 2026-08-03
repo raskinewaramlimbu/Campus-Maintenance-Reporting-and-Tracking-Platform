@@ -1,0 +1,20 @@
+[
+  {
+    "id": "how-to-report",
+    "title": "How to report an issue properly",
+    "summary": "A quick checklist for writing a report that gets actioned faster.",
+    "body": "Before you submit, check you've included: the exact building and room/area (not just \"the library\", but which floor or room), what's actually wrong rather than what you think caused it, and roughly when you first noticed it. Reports with a specific location get triaged first because the maintenance team don't have to chase you for details."
+  },
+  {
+    "id": "categories-explained",
+    "title": "Choosing the right category",
+    "summary": "What each category actually covers, so reports land with the right team.",
+    "body": "Plumbing covers leaks, blockages and taps/toilets. Electrical covers sockets, lighting and anything that sparks, smells burnt, or trips. Heating/Cooling covers radiators, AC units and thermostats. Accessibility covers ramps, automatic doors, lifts and anything that stops someone getting around campus safely. If you're not sure, pick the closest one - reports can be recategorised by staff."
+  },
+  {
+    "id": "safety-first",
+    "title": "When to skip the form and call Estates directly",
+    "summary": "Some things shouldn't wait for a queued report.",
+    "body": "If there's a gas smell, exposed wiring, a flood, or anything that could hurt someone in the next hour, don't wait for this form to be reviewed - use the Estates emergency line on campus and report it here afterwards for the record."
+  }
+]
