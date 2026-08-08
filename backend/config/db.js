@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-// Kept as its own module so server.js doesn't get cluttered and so tests
-// (if we ever add them) can import just the connection logic.
+
 export default async function connectDB() {
   const uri = process.env.MONGODB_URI;
   if (!uri) {
