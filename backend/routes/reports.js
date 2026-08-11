@@ -4,8 +4,7 @@ import { requireAuth } from "../middleware/auth.js";
 
 const router = Router();
 
-// GET /api/reports?category=&location=&status=&page=&limit=
-// Public - anyone can browse reports, no login needed to check status.
+
 router.get("/", async (req, res, next) => {
   try {
     const { category, location, status } = req.query;
@@ -15,8 +14,7 @@ router.get("/", async (req, res, next) => {
     if (status) query.status = status;
     if (location) query.location = { $regex: location, $options: "i" }; // simple contains-match
 
-    // basic pagination so this doesn't fall over once there are hundreds of
-    // reports - defaults keep old behaviour (everything) for small datasets
+
     const limit = Math.min(parseInt(req.query.limit, 10) || 100, 200);
     const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
 
@@ -37,16 +35,13 @@ router.get("/:id", async (req, res, next) => {
     if (!report) return res.status(404).json({ error: "Report not found" });
     res.json(report);
   } catch (err) {
-    // an invalid ObjectId throws a CastError, treat that as a 404 rather
-    // than a 500 - it's a not-found from the caller's point of view
+
     if (err.name === "CastError") return res.status(404).json({ error: "Report not found" });
     next(err);
   }
 });
 
-// Public - submitting a report doesn't require an account, matching the
-// pass/merit behaviour. This is a deliberate choice: requiring a login to
-// report a leak would put people off using the service at all.
+
 router.post("/", async (req, res, next) => {
   try {
     const { category, location, description, photoUrl, reportedBy, consentGiven, geo } = req.body;
@@ -77,7 +72,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// From here down: staff-only. This is the "manage reports" side of things.
+
 router.put("/:id", requireAuth, async (req, res, next) => {
   try {
     const { category, location, description, photoUrl } = req.body;
@@ -107,7 +102,7 @@ router.patch("/:id/status", requireAuth, async (req, res, next) => {
     const report = await Report.findById(req.params.id);
     if (!report) return res.status(404).json({ error: "Report not found" });
 
-    report.status = status; // pre-save hook stamps resolvedAt if this is the first time it hits Resolved
+    report.status = status;
     report.lastUpdatedBy = req.user.id;
     await report.save();
 

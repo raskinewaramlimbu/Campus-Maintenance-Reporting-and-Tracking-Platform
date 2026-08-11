@@ -8,9 +8,7 @@ const GUIDANCE_FILE = path.join(__dirname, "..", "data", "guidance.json");
 
 const router = Router();
 
-// This is intentionally just a read of a JSON file - the brief only asks for
-// static guidance content served from Express, no need to over-engineer it
-// with a database table for something that basically never changes.
+
 router.get("/", async (req, res, next) => {
   try {
     const raw = await fs.readFile(GUIDANCE_FILE, "utf-8");

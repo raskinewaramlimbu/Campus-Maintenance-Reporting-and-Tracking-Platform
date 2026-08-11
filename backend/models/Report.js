@@ -23,12 +23,19 @@ const reportSchema = new mongoose.Schema(
     consentGiven: { type: Boolean, required: true },
     geo: { type: geoSchema, default: null },
 
-    // set once, the first time a report moves to Resolved - this is what
-    // the resolution-time analytics are built from
-    resolvedAt: { type: Date, default: null },
 
-    // who (if anyone) actioned this - only populated once staff accounts
-    // start updating reports
+      resolvedAt: {
+    type: Date,
+    default: null,
+    validate: {
+      validator: function (value) {
+        if (!value || this.isNew || !this.dateReported) return true;
+        return value >= this.dateReported;
+      },
+      message: "resolvedAt cannot be earlier than dateReported",
+    },
+  },
+
     lastUpdatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
   },
   {
@@ -36,23 +43,19 @@ const reportSchema = new mongoose.Schema(
   }
 );
 
-// indexes for the filters/analytics we actually query on
+
 reportSchema.index({ category: 1 });
 reportSchema.index({ status: 1 });
 reportSchema.index({ location: "text" });
 
 reportSchema.pre("save", function (next) {
-  // stamp resolvedAt the moment a report first becomes Resolved, don't
-  // touch it again if it's edited afterwards
+  
   if (this.isModified("status") && this.status === "Resolved" && !this.resolvedAt) {
     this.resolvedAt = new Date();
   }
   next();
 });
 
-// the frontend was originally written against the JSON-file version of this
-// API where every record had a plain `id` string - rather than rewrite
-// every component to use Mongo's `_id`, just expose both
 reportSchema.set("toJSON", {
   transform: (doc, ret) => {
     ret.id = ret._id.toString();

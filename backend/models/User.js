@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-// Kept intentionally small - this app doesn't need a public "student"
-// account system since reports can be submitted without logging in. Users
-// here represent Estates staff who need to manage reports.
+
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true, maxlength: 100 },
@@ -22,7 +20,7 @@ userSchema.statics.hashPassword = function (plain) {
   return bcrypt.hash(plain, 12);
 };
 
-// never send the hash back out by accident
+
 userSchema.set("toJSON", {
   transform: (doc, ret) => {
     delete ret.passwordHash;
