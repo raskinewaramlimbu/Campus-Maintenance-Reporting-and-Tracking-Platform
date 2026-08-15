@@ -3,10 +3,7 @@ import fetch from "node-fetch";
 
 const router = Router();
 
-// Proxying this through our own server rather than calling it from the
-// browser for two reasons: Nominatim's usage policy wants a proper
-// User-Agent identifying the app, and it avoids a CORS headache client side.
-// GET /api/geocode?q=Sackville Building Bolton
+
 router.get("/", async (req, res, next) => {
   try {
     const { q } = req.query;
@@ -21,7 +18,7 @@ router.get("/", async (req, res, next) => {
 
     const response = await fetch(url, {
       headers: {
-        // Nominatim asks for a descriptive UA, not a browser-looking one
+
         "User-Agent": "FixMyCampus-CourseworkApp/1.0 (student project, CPS7005C)",
       },
     });
@@ -32,7 +29,7 @@ router.get("/", async (req, res, next) => {
 
     const results = await response.json();
 
-    // trim down to just what the frontend needs
+
     const simplified = results.map((r) => ({
       displayName: r.display_name,
       lat: r.lat,

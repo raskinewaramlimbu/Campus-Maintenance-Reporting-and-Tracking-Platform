@@ -5,8 +5,7 @@ import User from "../models/User.js";
 
 const router = Router();
 
-// A handful of failed logins per 15 minutes is plenty for a real user and
-// makes brute-forcing painfully slow - basic but genuine hardening.
+
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 8,
@@ -23,10 +22,7 @@ function signToken(user) {
   );
 }
 
-// Deliberately not wide open - registration exists so a marker can create a
-// staff account, but in a real deployment this route would be locked down
-// behind an invite code or an existing admin. Left simple here since
-// there's no admin UI yet to gate it properly.
+
 router.post("/register", async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -59,7 +55,7 @@ router.post("/login", loginLimiter, async (req, res, next) => {
     }
 
     const user = await User.findOne({ email: email.toLowerCase() });
-    // same error message either way - don't leak which part was wrong
+
     if (!user || !(await user.checkPassword(password))) {
       return res.status(401).json({ error: "Incorrect email or password" });
     }

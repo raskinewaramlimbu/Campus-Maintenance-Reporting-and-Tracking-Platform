@@ -9,16 +9,14 @@ router.use(requireAuth);
 
 function toCsvValue(value) {
   const str = String(value ?? "");
-  // wrap in quotes and escape any quotes inside - basic but correct CSV escaping
+
   if (/[",\n]/.test(str)) {
     return `"${str.replace(/"/g, '""')}"`;
   }
   return str;
 }
 
-// GET /api/export/csv?category=&status=&location=
-// Same filters as the reports list so staff can export exactly the view
-// they're looking at.
+
 router.get("/csv", async (req, res, next) => {
   try {
     const { category, status, location } = req.query;
@@ -54,9 +52,7 @@ router.get("/csv", async (req, res, next) => {
   }
 });
 
-// GET /api/export/pdf?category=&status=&location=
-// A plain, readable PDF listing - not trying to be a fancy report, just a
-// document staff can print or attach to an email thread.
+
 router.get("/pdf", async (req, res, next) => {
   try {
     const { category, status, location } = req.query;
