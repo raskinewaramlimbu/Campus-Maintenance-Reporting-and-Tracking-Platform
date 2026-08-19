@@ -63,8 +63,7 @@ async function seed() {
   await Report.deleteMany({});
   const created = await Report.insertMany(sampleReports);
 
-  // backdate a few of them so the analytics/reminders views have something
-  // realistic to show instead of everything being "just now"
+
   await Report.findByIdAndUpdate(created[0]._id, {
     dateReported: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
   });

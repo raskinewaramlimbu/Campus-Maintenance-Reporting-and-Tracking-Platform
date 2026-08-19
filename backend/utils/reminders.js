@@ -3,9 +3,7 @@ import Report from "../models/Report.js";
 import User from "../models/User.js";
 import { sendReminderDigest } from "./reminderMailer.js";
 
-// Runs once a day at 8am server time. Kept separate from the on-demand
-// GET /api/analytics/reminders route (which staff can check any time in
-// the dashboard) - this is the proactive push side of the same feature.
+
 export function scheduleReminderDigest() {
   cron.schedule("0 8 * * *", async () => {
     try {
@@ -19,8 +17,7 @@ export function scheduleReminderDigest() {
 
       if (overdue.length === 0) return;
 
-      // send to every staff account rather than a single fixed inbox -
-      // simple for coursework, an admin-only digest would be the next step
+
       const staff = await User.find({}, "email");
       for (const person of staff) {
         await sendReminderDigest(overdue, person.email);

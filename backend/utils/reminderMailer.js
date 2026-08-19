@@ -1,9 +1,6 @@
 import nodemailer from "nodemailer";
 
-// If SMTP env vars aren't set (which they won't be for most people running
-// this locally/for marking) we just log what would have been sent instead
-// of throwing. That keeps the reminder feature demonstrable without
-// needing real email credentials.
+
 function getTransport() {
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER) return null;
 
