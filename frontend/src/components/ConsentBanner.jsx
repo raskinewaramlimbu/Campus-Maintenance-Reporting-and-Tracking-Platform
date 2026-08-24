@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "fmc-consent-acknowledged";
 
-// Not a cookie-consent banner (we don't set tracking cookies) - this is just
-// making sure people have actually seen the privacy notice before they use
-// the service, which the brief asks us to surface somewhere visible.
+
 export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
 

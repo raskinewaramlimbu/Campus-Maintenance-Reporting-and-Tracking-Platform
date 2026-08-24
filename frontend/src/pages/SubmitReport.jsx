@@ -19,8 +19,6 @@ export default function SubmitReport() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  // geocoding state - kept separate from the form since it's a helper, not
-  // a required field
   const [geoQuery, setGeoQuery] = useState("");
   const [geoResults, setGeoResults] = useState([]);
   const [geoLoading, setGeoLoading] = useState(false);

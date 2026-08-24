@@ -10,9 +10,6 @@ export default function Reports() {
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({ category: "", location: "", status: "" });
 
-  // refetch whenever filters change - this is the "dynamic updates through
-  // API routes" bit, the server does the filtering rather than us just
-  // hiding cards client side
   useEffect(() => {
     let cancelled = false;
 
