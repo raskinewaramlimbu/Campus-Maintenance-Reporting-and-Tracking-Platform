@@ -60,8 +60,15 @@ const sampleReports = [
 async function seed() {
   await connectDB();
 
+  //await Report.deleteMany({});
+  //const created = await Report.insertMany(sampleReports);
   await Report.deleteMany({});
-  const created = await Report.insertMany(sampleReports);
+  const created = [];
+  for (const reportData of sampleReports) {
+    const report = new Report(reportData);
+    await report.save();
+    created.push(report);
+  }
 
 
   await Report.findByIdAndUpdate(created[0]._id, {
